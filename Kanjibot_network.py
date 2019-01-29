@@ -11,8 +11,8 @@ import scipy.ndimage as nd
 from keras.engine.training_generator import fit_generator
 import Kanjibot_img2tfrecord as kb
 from keras.models import Sequential
-from keras.layers import Dense
-from keras.layers import Flatten
+from keras.layers.core import Flatten, Dense, Dropout, Activation
+from keras.layers.convolutional import Convolution2D, MaxPooling2D, ZeroPadding2D, Conv2D
 from keras.preprocessing.sequence import pad_sequences
 from keras.utils import np_utils
 from sklearn.utils import compute_class_weight, class_weight
@@ -44,7 +44,7 @@ with tf.Session() as sess:
 	label = tf.cast(features['train/label'], tf.int32)
 
 	# reshape the image to its original shape
-	image = tf.reshape(image, [64, 64, 3])
+	image = tf.reshape(image, [32, 32, 3])
 	print(image.shape)
 
 	# preprocessing here
@@ -96,11 +96,23 @@ class_weight_dict = dict(zip(np.unique(k.data_split()[2]), class_weight_list))
 # set up the keras model, using input of 2d images of 64 * 64
 # set up the model's layers. The first Dense layer has 4096 nodes (for the amount of pixels per image),
 # and the output layer has 50 nodes, one for each image class
-model = Sequential([
-	Flatten(input_shape=(64, 64, 3)),
-	Dense(4096, activation=tf.nn.relu),
-	Dense(50, activation=tf.nn.softmax)
-])
+model = Sequential()
+
+model.add(Conv2D(32, (3, 3), input_shape=(32, 32, 3)))
+model.add(Activation("relu"))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+
+model.add(Conv2D(32, (3, 3)))
+model.add(Activation("relu"))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+
+model.add(Flatten())
+model.add(Dense(4096))
+model.add(Activation("relu"))
+model.add(Dropout(0.5))
+model.add(Dense(50))
+model.add(Activation("sigmoid"))
+
 
 # compile the model prior to training
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])

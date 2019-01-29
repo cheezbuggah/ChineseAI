@@ -49,7 +49,8 @@ class KanjibotImg2TFrecord:
 	# # Training: 60%
 	# # Validation: 20%
 	# # Test: 20%
-
+	# (train_addrs, test_addrs, train_labels, test_labels) = train_test_split(addrs, index_labels, test_size=0.4)
+	# (val_addrs, test_addrs, val_labels, test_labels) = train_test_split(test_addrs, test_labels, test_size=0.5)
 	def data_split(self):
 		(train_addrs, test_addrs, train_labels, test_labels) = train_test_split(self.addrs, self.index_labels, test_size=0.4)
 		(val_addrs, test_addrs, val_labels, test_labels) = train_test_split(test_addrs, test_labels, test_size=0.5)
@@ -63,7 +64,7 @@ class KanjibotImg2TFrecord:
 	def load_image(self, addr):
 		addr = str(addr)
 		img = cv2.imread(addr)
-		img = cv2.resize(img, (64, 64), interpolation=cv2.INTER_CUBIC)
+		img = cv2.resize(img, (32, 32), interpolation=cv2.INTER_CUBIC)
 		img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 		img = img.astype(np.float32)
 		return img
@@ -140,3 +141,6 @@ class KanjibotImg2TFrecord:
 
 		writer.close()
 		sys.stdout.flush()
+
+
+# KanjibotImg2TFrecord().write_files()

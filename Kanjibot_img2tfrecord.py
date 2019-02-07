@@ -71,14 +71,14 @@ class KanjibotImg2TFrecord:
 
 	def load_image(self, addr):
 		addr = str(addr)
-		kernel = np.ones((3, 3), np.uint8)
+		kernel = np.ones((2, 2), np.uint8)
 		img = cv2.imread(addr)
-		img = cv2.resize(img, (64, 64), interpolation=cv2.INTER_CUBIC)
+		img = cv2.resize(img, (64, 64), interpolation=cv2.INTER_AREA)
 		img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 		# img = cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel)
 		# img = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel)
-		img = cv2.erode(img, kernel, iterations=1)
-		img = img.astype(np.float32)
+		# img = cv2.erode(img, kernel, iterations=1)
+		img = img.astype(np.int32)
 		return img
 
 	def _int64_feature(self, value):

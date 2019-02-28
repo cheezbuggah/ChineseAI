@@ -5,6 +5,7 @@ import cv2
 import numpy as np
 import tensorflow as tf
 import sys
+from retrying import retry
 import time
 from sklearn.model_selection import train_test_split
 
@@ -32,6 +33,7 @@ class KanjibotImg2TFrecord:
 	label_list = []
 	index_labels = []
 	i = 0
+
 	for addres in addrs:
 		while True:
 			try:
@@ -54,20 +56,20 @@ class KanjibotImg2TFrecord:
 		out = np.array(list)
 		return out
 
-	# # Training: 60%
-	# # Validation: 20%
-	# # Test: 20%
-	# (train_addrs, test_addrs, train_labels, test_labels) = train_test_split(addrs, index_labels, test_size=0.4)
+	# # Training: 70%
+	# # Validation: 15%
+	# # Test: 15%
+	# (train_addrs, test_addrs, train_labels, test_labels) = train_test_split(addrs, index_labels, test_size=0.3)
 	# (val_addrs, test_addrs, val_labels, test_labels) = train_test_split(test_addrs, test_labels, test_size=0.5)
 	def data_split(self):
-		(train_addrs, test_addrs, train_labels, test_labels) = train_test_split(self.addrs, self.index_labels, test_size=0.4)
+		(train_addrs, test_addrs, train_labels, test_labels) = train_test_split(self.addrs, self.index_labels, test_size=0.3)
 		(val_addrs, test_addrs, val_labels, test_labels) = train_test_split(test_addrs, test_labels, test_size=0.5)
 
-		(train_image_list, test_image_list, train_image_labels, test_image_labels) = train_test_split(self.image_list(self.addrs), self.index_labels, test_size=0.4)
+		(train_image_list, test_image_list, train_image_labels, test_image_labels) = train_test_split(self.image_list(self.addrs), self.index_labels, test_size=0.3)
 		(val_image_list, test_image_list, val_image_labels, test_image_labels) = train_test_split(test_image_list, test_image_labels, test_size=0.5)
 
 		return [train_image_list, test_image_list, train_image_labels, test_image_labels,
-				val_image_list, val_image_labels, val_addrs, test_addrs, val_labels, test_labels]
+				val_image_list, val_image_labels, val_addrs, test_addrs, val_labels, test_labels, train_addrs]
 
 	def load_image(self, addr):
 		addr = str(addr)

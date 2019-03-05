@@ -21,6 +21,8 @@ from keras.models import Sequential
 from keras.layers import BatchNormalization
 from keras.layers.core import Flatten, Dense, Dropout, Activation
 from keras.layers.convolutional import Convolution2D, MaxPooling2D, ZeroPadding2D, Conv2D
+from keras.layers import Input
+from keras.layers.recurrent import LSTM
 from keras.preprocessing.sequence import pad_sequences
 from keras.utils.vis_utils import plot_model
 from keras.callbacks import CSVLogger, LearningRateScheduler
@@ -119,7 +121,7 @@ with tf.Session(config=config) as sess:
 	# preprocessing here; create a data generator to provide more training samples
 	print("Initializing the data generators...")
 	train_datagen = keras.preprocessing.image.ImageDataGenerator(
-		rotation_range=5,
+		rotation_range=1,
 		width_shift_range=0.1,
 		height_shift_range=0.1,
 		rescale=1./255,
@@ -182,37 +184,34 @@ class_weight_dict = dict(zip(np.unique(k.data_split()[2]), class_weight_list))
 input_num_units = 128
 hidden_num_units = 500
 output_num_units = 50
-dropout_ratio = 0.2
+dropout_ratio = 0.5
 
 model = Sequential()
 
-model.add(Dense(input_num_units, batch_size=batch_size, input_shape=(64, 64, 3), activation='relu'))
-model.add(Dropout(dropout_ratio))
-
-model.add(Conv2D(64, kernel_size=(3, 3), activation='relu'))
+model.add(Dense(64, input_shape=(64, 64, 3), activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(BatchNormalization())
-model.add(Dropout(dropout_ratio))
+# model.add(BatchNormalization())
+# model.add(Dropout(dropout_ratio))
 
 model.add(Conv2D(128, kernel_size=(3, 3), activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(BatchNormalization())
-model.add(Dropout(dropout_ratio))
+# model.add(BatchNormalization())
+# model.add(Dropout(dropout_ratio))
 
 model.add(Conv2D(128, kernel_size=(3, 3), activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(BatchNormalization())
-model.add(Dropout(dropout_ratio))
+# model.add(BatchNormalization())
+# model.add(Dropout(dropout_ratio))
 
 model.add(Conv2D(64, kernel_size=(3, 3), activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(BatchNormalization())
-model.add(Dropout(dropout_ratio))
+# model.add(BatchNormalization())
+# model.add(Dropout(dropout_ratio))
 
 model.add(Flatten())
-model.add(Dense(128, activation='relu'))
 model.add(Dropout(dropout_ratio))
-model.add(Dense(output_dim=output_num_units, input_dim=hidden_num_units, activation='softmax'))
+model.add(Dense(128, activation='relu'))
+model.add(Dense(output_dim=50, input_dim=128, activation='softmax'))
 
 
 # Define the learning rate (lower = less weight shifts)
@@ -222,16 +221,26 @@ def step_decay_scheduler(initial_lrate=1e-3, decay_factor=0.75, step_size=10):
 		return initial_lrate * (decay_factor ** np.floor(epoch/step_size))
 	return LearningRateScheduler(schedule)
 
+def exp_decay(epoch, lr):
+	drop = 0.5
+	epochs_drop = 2.0
+	lrate = lr * math.pow(drop, math.floor((1+epoch)/(epochs_drop)))
+	return lrate
+
 epochs = 80
+learning_rate = 0.1
+
+lr_exp = LearningRateScheduler(exp_decay(epochs, learning_rate))
 
 lr_sched = step_decay_scheduler(initial_lrate=1e-4, decay_factor=0.75, step_size=2)
 lr_finder = LRFinder.LRFinder(min_lr=1e-5, max_lr=1e-2, steps_per_epoch=(epochs/batch_size), epochs=3)
 
-learning_rate = 1e-5
+
 decay_rate = learning_rate / epochs
 momentum = 0.9
 sgd = optimizers.SGD(lr=learning_rate, momentum=momentum, decay=decay_rate, nesterov=False)
 adam = optimizers.Adam(lr=learning_rate, decay=decay_rate)
+rmspop = optimizers.RMSprop(lr=1e-4)
 
 # train_nimg = 29754
 # test_nimg = 6375
@@ -240,11 +249,12 @@ adam = optimizers.Adam(lr=learning_rate, decay=decay_rate)
 # Define a logger to save progress mad eduring training
 csv_logger = CSVLogger('Warmind_Nobunaga_log.csv', append=True, separator=',')
 # compile the model prior to training
-model.compile(optimizer=adam, loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+model.compile(optimizer=sgd, loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 # history = model.fit(train_image_list, train_labels, batch_size=batch_size, epochs=epochs, class_weight=class_weight_dict, verbose=1, callbacks=[lr_finder])
 history = model.fit_generator(train_generator, steps_per_epoch=train_nimg // batch_size, epochs=epochs,
  							  validation_data=val_generator, validation_steps=val_nimg // batch_size,
- 							  class_weight=class_weight_dict, verbose=1, callbacks=[lr_finder])
+ 							  class_weight=class_weight_dict, verbose=1, callbacks=[lr_sched])
+model.save('kanjibot_network.h5')
 # List all the data in history
 print(history.history.keys())
 lr_finder.plot_loss()

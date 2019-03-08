@@ -1,36 +1,18 @@
-from random import shuffle
-import glob
-import os, sys
+import os
 import math
-import cv2
 import numpy as np
 import tensorflow as tf
-import tensorflow.contrib as tfc
-import pickle
-import pydot
-import time
 import matplotlib.pyplot as plt
 import keras
-import scipy.ndimage as nd
-import graphviz
-from functools import lru_cache
-from keras.engine.training_generator import fit_generator
 import Kanjibot_img2tfrecord as kb
 import LRFinder
 from keras.models import Sequential
+from keras.applications import ResNet50, VGG16, VGG19, InceptionResNetV2, InceptionV3
 from keras.layers import BatchNormalization
 from keras.layers.core import Flatten, Dense, Dropout, Activation
-from keras.layers.convolutional import Convolution2D, MaxPooling2D, ZeroPadding2D, Conv2D
-from keras.layers import Input
-from keras.layers.recurrent import LSTM
-from keras.preprocessing.sequence import pad_sequences
 from keras.utils.vis_utils import plot_model
 from keras.callbacks import CSVLogger, LearningRateScheduler
-from sklearn.utils import compute_class_weight, class_weight
-from sklearn.model_selection import train_test_split
-from sklearn import tree
-from ann_visualizer.visualize import ann_viz
-from IPython.display import SVG
+from sklearn.utils import compute_class_weight
 from keras import activations, optimizers
 
 k = kb.KanjibotImg2TFrecord()
@@ -105,17 +87,17 @@ _, serialized_example, = reader.read(filename_queue)
 batch_size = 128
 
 with tf.Session(config=config) as sess:
-	feature = {'train/image': tf.FixedLenFeature([], tf.string),
-			   'train/label': tf.FixedLenFeature([], tf.int64)}
+	feature = {'image': tf.FixedLenFeature([], tf.string),
+			   'label': tf.FixedLenFeature([], tf.int64)}
 	# decode the record
 	features = tf.parse_single_example(serialized_example, features=feature)
 	# convert the image data from a string back to numbers
-	image = tf.decode_raw(features['train/image'], tf.int32)
+	image = tf.decode_raw(features['image'], tf.int32)
 	# cast label data into int32
-	label = tf.cast(features['train/label'], tf.int32)
+	label = tf.cast(features['label'], tf.int32)
 
 	# reshape the image to its original shape
-	image = tf.reshape(image, [64, 64, 3])
+	image = tf.reshape(image, [75, 75, 3])
 	print(image.shape)
 
 	# preprocessing here; create a data generator to provide more training samples
@@ -186,32 +168,45 @@ hidden_num_units = 500
 output_num_units = 50
 dropout_ratio = 0.5
 
+conv_base = InceptionResNetV2(weights='imagenet', include_top=False, input_shape=(75, 75, 3))
+
 model = Sequential()
-
-model.add(Dense(64, input_shape=(64, 64, 3), activation='relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-# model.add(BatchNormalization())
-# model.add(Dropout(dropout_ratio))
-
-model.add(Conv2D(128, kernel_size=(3, 3), activation='relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-# model.add(BatchNormalization())
-# model.add(Dropout(dropout_ratio))
-
-model.add(Conv2D(128, kernel_size=(3, 3), activation='relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-# model.add(BatchNormalization())
-# model.add(Dropout(dropout_ratio))
-
-model.add(Conv2D(64, kernel_size=(3, 3), activation='relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-# model.add(BatchNormalization())
-# model.add(Dropout(dropout_ratio))
-
+model.add(conv_base)
 model.add(Flatten())
-model.add(Dropout(dropout_ratio))
-model.add(Dense(128, activation='relu'))
-model.add(Dense(output_dim=50, input_dim=128, activation='softmax'))
+model.add(Dense(256, activation='relu'))
+model.add(Dense(50, activation='softmax'))
+model.summary()
+
+print('Number of trainable weights before freezing the conv base: ', len(model.trainable_weights))
+conv_base.trainable = False
+print('Number of trainable weights after freezing the conv base: ', len(model.trainable_weights))
+
+# model = Sequential
+#
+# model.add(Dense(75, input_shape=(75, 75, 3), activation='relu'))
+# model.add(MaxPooling2D(pool_size=(2, 2)))
+# # model.add(BatchNormalization())
+# # model.add(Dropout(dropout_ratio))
+#
+# model.add(Conv2D(128, kernel_size=(3, 3), activation='relu'))
+# model.add(MaxPooling2D(pool_size=(2, 2)))
+# # model.add(BatchNormalization())
+# # model.add(Dropout(dropout_ratio))
+#
+# model.add(Conv2D(128, kernel_size=(3, 3), activation='relu'))
+# model.add(MaxPooling2D(pool_size=(2, 2)))
+# # model.add(BatchNormalization())
+# # model.add(Dropout(dropout_ratio))
+#
+# model.add(Conv2D(64, kernel_size=(3, 3), activation='relu'))
+# model.add(MaxPooling2D(pool_size=(2, 2)))
+# # model.add(BatchNormalization())
+# # model.add(Dropout(dropout_ratio))
+#
+# model.add(Flatten())
+# model.add(Dropout(dropout_ratio))
+# model.add(Dense(128, activation='relu'))
+# model.add(Dense(output_dim=50, input_dim=128, activation='softmax'))
 
 
 # Define the learning rate (lower = less weight shifts)
@@ -228,7 +223,7 @@ def exp_decay(epoch, lr):
 	return lrate
 
 epochs = 80
-learning_rate = 0.1
+learning_rate = 2e-4
 
 lr_exp = LearningRateScheduler(exp_decay(epochs, learning_rate))
 
@@ -240,20 +235,16 @@ decay_rate = learning_rate / epochs
 momentum = 0.9
 sgd = optimizers.SGD(lr=learning_rate, momentum=momentum, decay=decay_rate, nesterov=False)
 adam = optimizers.Adam(lr=learning_rate, decay=decay_rate)
-rmspop = optimizers.RMSprop(lr=1e-4)
+rmspop = optimizers.RMSprop(lr=learning_rate)
 
-# train_nimg = 29754
-# test_nimg = 6375
-# val_nimg = 6375
-
-# Define a logger to save progress mad eduring training
+# Define a logger to save progress made during training
 csv_logger = CSVLogger('Warmind_Nobunaga_log.csv', append=True, separator=',')
 # compile the model prior to training
 model.compile(optimizer=sgd, loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 # history = model.fit(train_image_list, train_labels, batch_size=batch_size, epochs=epochs, class_weight=class_weight_dict, verbose=1, callbacks=[lr_finder])
 history = model.fit_generator(train_generator, steps_per_epoch=train_nimg // batch_size, epochs=epochs,
  							  validation_data=val_generator, validation_steps=val_nimg // batch_size,
- 							  class_weight=class_weight_dict, verbose=1, callbacks=[lr_sched])
+ 							  class_weight=class_weight_dict, verbose=1, callbacks=[lr_finder])
 model.save('kanjibot_network.h5')
 # List all the data in history
 print(history.history.keys())

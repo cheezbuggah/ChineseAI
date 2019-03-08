@@ -75,7 +75,7 @@ class KanjibotImg2TFrecord:
 		addr = str(addr)
 		kernel = np.ones((2, 2), np.uint8)
 		img = cv2.imread(addr)
-		img = cv2.resize(img, (64, 64), interpolation=cv2.INTER_AREA)
+		img = cv2.resize(img, (75, 75), interpolation=cv2.INTER_AREA)
 		img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 		# img = cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel)
 		# img = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel)
@@ -103,8 +103,8 @@ class KanjibotImg2TFrecord:
 			label = self.train_labels[i]
 
 			# create a feature
-			feature = {'train/label': self._int64_feature(label),
-					   'train/image': self._bytes_feature(tf.compat.as_bytes(img.tostring()))}
+			feature = {'label': self._int64_feature(label),
+					   'image': self._bytes_feature(tf.compat.as_bytes(img.tostring()))}
 
 			# create an example protocol buffer
 			example = tf.train.Example(features=tf.train.Features(feature=feature))
@@ -127,8 +127,8 @@ class KanjibotImg2TFrecord:
 			img = self.load_image(self.val_addrs[i])
 			label = self.val_labels[i]
 
-			feature = {'val/label': self._int64_feature(label),
-					   'val/image': self._bytes_feature(tf.compat.as_bytes(img.tostring()))}
+			feature = {'label': self._int64_feature(label),
+					   'image': self._bytes_feature(tf.compat.as_bytes(img.tostring()))}
 
 			example = tf.train.Example(features=tf.train.Features(feature=feature))
 			writer.write(example.SerializeToString())

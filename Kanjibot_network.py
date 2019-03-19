@@ -8,7 +8,7 @@ import Kanjibot_img2tfrecord as kb
 import LRFinder
 from keras.models import Sequential
 from keras.applications import ResNet50, VGG16, VGG19, InceptionResNetV2, InceptionV3
-from keras.layers import BatchNormalization
+from keras.layers import BatchNormalization, Conv2D
 from keras.layers.core import Flatten, Dense, Dropout, Activation
 from keras.utils.vis_utils import plot_model
 from keras.callbacks import CSVLogger, LearningRateScheduler
@@ -62,6 +62,12 @@ val_labels = k.data_split()[5]
 train_images = k.data_split()[10]
 test_images = k.data_split()[7]
 val_images = k.data_split()[6]
+
+k49_train_images = np.load("./Dataset/k49-train-imgs.npz")
+k49_train_labels = np.load("./Dataset/k49-train-labels.npz")
+k49_test_images = np.load("./Dataset/k49-test-imgs.npz")
+k49_test_labels = np.load("./Dataset/k49-test-labels.npz")
+
 
 # data_paths = [data_path_train, data_path_test, data_path_val]
 # dataset_train = tf.data.TFRecordDataset(data_paths)
@@ -168,7 +174,7 @@ hidden_num_units = 500
 output_num_units = 50
 dropout_ratio = 0.5
 
-conv_base = InceptionResNetV2(weights='imagenet', include_top=False, input_shape=(75, 75, 3))
+conv_base = ResNet50(weights='imagenet', include_top=False, input_shape=(75, 75, 3))
 
 model = Sequential()
 model.add(conv_base)
@@ -222,8 +228,8 @@ def exp_decay(epoch, lr):
 	lrate = lr * math.pow(drop, math.floor((1+epoch)/(epochs_drop)))
 	return lrate
 
-epochs = 80
-learning_rate = 2e-4
+epochs = 50
+learning_rate = 1e-5
 
 lr_exp = LearningRateScheduler(exp_decay(epochs, learning_rate))
 
@@ -232,7 +238,7 @@ lr_finder = LRFinder.LRFinder(min_lr=1e-5, max_lr=1e-2, steps_per_epoch=(epochs/
 
 
 decay_rate = learning_rate / epochs
-momentum = 0.9
+momentum = 0.8
 sgd = optimizers.SGD(lr=learning_rate, momentum=momentum, decay=decay_rate, nesterov=False)
 adam = optimizers.Adam(lr=learning_rate, decay=decay_rate)
 rmspop = optimizers.RMSprop(lr=learning_rate)
@@ -240,12 +246,11 @@ rmspop = optimizers.RMSprop(lr=learning_rate)
 # Define a logger to save progress made during training
 csv_logger = CSVLogger('Warmind_Nobunaga_log.csv', append=True, separator=',')
 # compile the model prior to training
-model.compile(optimizer=sgd, loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 # history = model.fit(train_image_list, train_labels, batch_size=batch_size, epochs=epochs, class_weight=class_weight_dict, verbose=1, callbacks=[lr_finder])
 history = model.fit_generator(train_generator, steps_per_epoch=train_nimg // batch_size, epochs=epochs,
  							  validation_data=val_generator, validation_steps=val_nimg // batch_size,
- 							  class_weight=class_weight_dict, verbose=1, callbacks=[lr_finder])
-model.save('kanjibot_network.h5')
+ 							  class_weight=class_weight_dict, verbose=1)
 # List all the data in history
 print(history.history.keys())
 lr_finder.plot_loss()
@@ -273,3 +278,4 @@ print(model.summary())
 plot_model(model, to_file='Warmind_Nobunaga.png', show_shapes=True, show_layer_names=True)
 top_layer = model.layers[0]
 plt.imshow(top_layer.get_weights()[0][:, :, :, 0].squeeze(), cmap='gray')
+model.save('kanjibot_network.h5')

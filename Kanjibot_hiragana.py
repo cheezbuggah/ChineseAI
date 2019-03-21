@@ -21,6 +21,7 @@ def get_files(npz):
 		npz = npz.get(file)
 		return npz
 
+
 x_train = np.load("./Dataset/k49-train-imgs.npz", mmap_mode='r')
 x_train = get_files(x_train)
 
@@ -105,6 +106,12 @@ scores = model.evaluate(x_test, y_test)
 print("\n%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
 print(model.summary())
 plot_model(model, to_file='Warmind_Nobunaga.png', show_shapes=True, show_layer_names=True)
-model.save('kanjibot_hiragana_model.h5')
+
+model_json = model.to_json()
+with open("kanjibot_hiragana_model.json", "w") as json_file:
+	json_file.write(model_json)
+
+model.save_weights('kanjibot_hiragana_final.h5')
+print("Saved model as .json and weights as .h5")
 
 

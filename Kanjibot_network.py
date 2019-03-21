@@ -278,4 +278,5 @@ print(model.summary())
 plot_model(model, to_file='Warmind_Nobunaga.png', show_shapes=True, show_layer_names=True)
 top_layer = model.layers[0]
 plt.imshow(top_layer.get_weights()[0][:, :, :, 0].squeeze(), cmap='gray')
-model.save('kanjibot_network.h5')
+
+

@@ -9,7 +9,7 @@ window.onload = function() {
                         var ctx = myCanvas.getContext("2d");
                         var canvasX, canvasY;
                         ctx.fillStyle = "white"
-                        ctx.lineWidth = 6;
+                        ctx.lineWidth = 10;
                         ctx.fillRect(0,0,300,300);
                             
                         $(myCanvas)

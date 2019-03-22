@@ -12,6 +12,7 @@ import base64
 import sys
 import re
 import os
+import random
 
 os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
@@ -34,26 +35,25 @@ def init():
 sys.path.append(os.path.abspath("./model"))
 
 UPLOAD = "./upload/"
+SAVE = "./saved/"
+BLACK = [0, 0, 0]
 
 app = Flask(__name__)
 
+global model, graph
 model, graph = init()
 
-# def predict(url):
-# 	img_data = url
-# 	x = imread(img_data, mode='L')
-# 	x = imresize(x, (28, 28))
-# 	x = np.reshape(x, (1, 28, 28, 1))
-# 	x = np.invert(x)
-#
-#
-# 	with graph.as_default():
-# 		out = model.predict(x)
-# 		print(out)
-# 		response = np.argmax(out, axis=1)
-# 		print(response)
-# 		return str(response[0])
 
+def safesave(img, chr):
+	rst = random.randint(100000000, 999999999)
+	rst = str(rst)
+	try:
+		cv.imread(SAVE+rst+"_"+chr+".png", 0)
+		safesave(img, chr)
+		return
+	except:
+		cv.imwrite(SAVE+rst+"_"+chr+".png", img)
+		return
 
 def predict(url):
 	img = cv.imread(url, 0)
@@ -70,22 +70,28 @@ def predict(url):
 			my = y
 		if h+y > mh:
 			mh = h+y
-	cut = img[my:mh,mx:mw]
-	plt.subplot(141),plt.imshow(cut,'gray')
-	plt.subplot(142),plt.imshow(img,'gray')
+	cut = img[my:mh, mx:mw]
+	cut = cv.copyMakeBorder(cut, 10, 10, 10, 10, cv.BORDER_CONSTANT, value=BLACK)
+	plt.subplot(141), plt.imshow(cut, 'gray')
+	plt.subplot(142), plt.imshow(img, 'gray')
 	plt.show()
 	cut = imresize(cut, (28, 28))
-	cut = cut.reshape((1, 28, 28, 1))
-	cut = cut.astype('float32')
-	cut /= 255
+	cut2 = cut.reshape((1, 28, 28, 1))
+	cut2 = cut2.astype('float32')
+	cut2 /= 255
 
 
 	with graph.as_default():
-		out = model.predict(cut)
+		out = model.predict(cut2)
 		print(out)
 		response = np.argmax(out, axis=1)
 		print(response)
-		return str(response[0])
+		prediction = str(response[0])
+
+	safesave(cut, prediction)
+	return prediction
+
+
 
 @app.route('/process', methods=['POST'])
 def process():

@@ -2,6 +2,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>HTML5 Canvas Drawing Board | onlyWebPro.com</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/style.css">
 <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -11,15 +13,31 @@
 </head>
 <body>
 <div id="board">
-
-<canvas id="myCanvas" width="280px" height="280px">
+<div id="canvasdiv">
+    <canvas id="myCanvas" width="280px" height="280px">
         Sorry, your browser doesn't support canvas technology.
-</canvas>
-<button id="erase" value="erase">Erase</button>
-<input id="upload" type="button" value="upload" method="POST">
+    </canvas>
+    <button id="erase" value="erase">Erase</button>
+    <input id="upload" type="button" value="upload" method="POST">
+</div>
     <div id="successAlert" class="alert alert-success" role="alert" style="display:none;"></div>
 
 </div><!-- END board -->
+<div class="results" style="display:none;">
+    <p><span id="value"></span></p>
+    <button id="var_1" value="var_1" style="display:none;"></button>
+    <button id="var_2" value="var_2" style="display:none;"></button>
+    <button id="var_3" value="var_3" style="display:none;"></button>
+    <button id="yesb" value="yes">Yes, that's it!</button><br>
+    <button id="nob" value="yes">No, it's none of these</button><br>
+    <p id="pron"></p>
+    <p id="note"></p>
+</div>
+<div class="debug" style="width: 200px;">
+    <input type="range" min="1" max="100" value="50" class="slider" id="brush">
+    <p id="brushv"></p>
+  </div>
+<div class="debug" id="debugresults"></div>
 </body>
 <style>
 

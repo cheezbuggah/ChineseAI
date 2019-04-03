@@ -12,26 +12,30 @@
     <script type="text/javascript" src="static/js/draw.js"></script>
 </head>
 <body>
-<div id="board">
-<div id="canvasdiv">
-    <canvas id="myCanvas" width="280px" height="280px">
-        Sorry, your browser doesn't support canvas technology.
-    </canvas>
-    <button id="erase" value="erase">Erase</button>
-    <input id="upload" type="button" value="upload" method="POST">
-</div>
-    <div id="successAlert" class="alert alert-success" role="alert" style="display:none;"></div>
+<div id="board" class="container-fluid">
+<div>
+<h1>Hiragana Recogniser</h1>
+    <div id="canvasdiv">
+        <canvas id="myCanvas" width="280px" height="280px">
+            Sorry, your browser doesn't support canvas technology.
+        </canvas>
+    </div>
+        <button id="erase" value="erase" class="btn btn-default">Erase</button>
+        <input id="upload" type="button" value="upload" method="POST" class="btn btn-primary">
+        <div id="successAlert" class="alert alert-success" role="alert" style="display:none;"></div>
 
-</div><!-- END board -->
-<div class="results" style="display:none;">
-    <p><span id="value"></span></p>
-    <button id="var_1" value="var_1" style="display:none;"></button>
-    <button id="var_2" value="var_2" style="display:none;"></button>
-    <button id="var_3" value="var_3" style="display:none;"></button>
-    <button id="yesb" value="yes">Yes, that's it!</button><br>
-    <button id="nob" value="yes">No, it's none of these</button><br>
-    <p id="pron"></p>
-    <p id="note"></p>
+<!-- END board -->
+    <div class="results" style="display:none;">
+        <p><span id="value"></span></p>
+        <button id="var_1" value="var_1" type="button" style="display:none;" class="btn btn-primary"></button>
+        <button id="var_2" value="var_2" type="button"  style="display:none;" class="btn btn-primary"></button>
+        <button id="var_3" value="var_3" type="button"  style="display:none;" class="btn btn-primary"></button>
+        <button id="yesb" value="yes" type="button"  class="btn btn-success">Yes, that's it!</button><br>
+        <button id="nob" value="yes" type="button"  class="btn btn-danger">No, it's none of these</button><br>
+        <p id="pron"></p>
+        <p id="note"></p>
+    </div>
+</div>
 </div>
 <div class="debug" style="width: 200px;">
     <input type="range" min="1" max="100" value="50" class="slider" id="brush">

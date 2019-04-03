@@ -6,8 +6,8 @@ import math
 import numpy as np
 import decimal
 import pandas
-import matplotlib
-matplotlib.use('Agg')
+# import matplotlib
+# matplotlib.use('Agg')
 # import matplotlib.pyplot as plt
 import pandas as pd
 import time
@@ -88,8 +88,9 @@ def predict(url):
 
 	with graph.as_default():
 		out = model.predict(cut2)
-		print(out)
-	return out
+		print(type(out))
+		print(out[0])
+	return out[0]
 
 
 
@@ -108,5 +109,12 @@ def process():
 def index():
 	return render_template('form.html')
 
+@app.route('/chosen', methods=['POST'])
+def chosen():
+	jchar = request.form['jchar']
+	print(jchar)
+	print(jchar.encode("unicode_escape"))
+	return jsonify({})
+
 if __name__ == '__main__':
-	app.run()
+	app.run(debug=True)

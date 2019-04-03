@@ -5,8 +5,22 @@ canvas {
     width: 300px;
     left:50%;
     margin: 0, 0 , 0, 0;
-    position: absolute;
 }
 #board {
     
+}
+.container-fluid{
+    left:50%;
+    text-align: center;
+    width:500px;
+    border-width:1px;
+    border-radius:20px;
+    border-style: solid;
+}
+
+#value{
+    border-style: solid;
+    border-width: 3px;
+    border-radius:20px;
+    font-size:8em;
 }

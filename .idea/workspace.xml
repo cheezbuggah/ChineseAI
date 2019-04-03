@@ -3,10 +3,33 @@
   <component name="ChangeListManager">
     <list default="true" id="dc274e5d-54be-499a-a825-2e0b309785f6" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/draw.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/draw.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/upload/output.png" beforeDir="false" afterPath="$PROJECT_DIR$/upload/output.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chars.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GPU test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/GPU test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JapaneseNeural.py" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/JapaneseNeural.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KanjiNeural_1" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/KanjiNeural_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KanjiNeural_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/KanjiNeural_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Kanjibot_img2tfrecord.py" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/Kanjibot_img2tfrecord.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Kanjibot_network.py" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/Kanjibot_network.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LRFinder.py" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/LRFinder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicNeuralNetwork.py" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/basicNeuralNetwork.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicNeuralNetworkGPU.py" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/basicNeuralNetworkGPU.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/dataset_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/filename.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/filename.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kanjibot_pretrained.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/kanjibot_pretrained.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kanjibot_pretrained.py" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/kanjibot_pretrained.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kanjibot_resnet.py" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/kanjibot_resnet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kanjibot_resnet_notebook.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/kanjibot_resnet_notebook.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kanjibot_resnet_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/kanjibot_resnet_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kanjibot_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/kanjibot_server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labels.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/labels.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/load.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/loss_plot_18th_march.png" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/loss_plot_18th_march.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model_json" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/model_json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/network.gv" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/network.gv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/network.gv.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/network.gv.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output.png" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/output.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads_Figure_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/Legacy/uploads_Figure_3.png" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,7 +42,7 @@
     <SUITE FILE_PATH="coverage/ChineseAI$Kanjibot_img2tfrecord.coverage" NAME="Kanjibot_img2tfrecord Coverage Results" MODIFIED="1552051828360" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ChineseAI$ChineseAI.coverage" NAME="ChineseAI Coverage Results" MODIFIED="1552040275462" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/ChineseAI$basicNeuralNetwork.coverage" NAME="basicNeuralNetwork Coverage Results" MODIFIED="1547562978869" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ChineseAI$run.coverage" NAME="run Coverage Results" MODIFIED="1553799237244" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ChineseAI$run.coverage" NAME="run Coverage Results" MODIFIED="1554289291939" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ChineseAI$JapaneseNeuralTest.coverage" NAME="JapaneseNeuralTest Coverage Results" MODIFIED="1548341550053" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ChineseAI$Kanjibot_hiragana.coverage" NAME="Kanjibot_hiragana Coverage Results" MODIFIED="1553156609771" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ChineseAI$neuralNetwork.coverage" NAME="neuralNetwork Coverage Results" MODIFIED="1543243735700" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -51,20 +74,26 @@
       <file leaf-file-name="Kanjibot_hiragana.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Kanjibot_hiragana.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="36" selection-start-line="36" selection-end-line="36" selection-end-column="70" />
+            <state relative-caret-position="238">
+              <caret line="34" column="26" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="run.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="run.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/run.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="92" lean-forward="true" selection-start-line="92" selection-end-line="92" />
-              <folding>
-                <element signature="e#0#23#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="42">
+              <caret line="47" selection-start-line="47" selection-end-line="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="resnet_utils.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resnet_utils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="116">
+              <caret line="18" column="79" lean-forward="true" selection-start-line="18" selection-start-column="79" selection-end-line="18" selection-end-column="79" />
             </state>
           </provider>
         </entry>
@@ -72,8 +101,8 @@
       <file leaf-file-name="draw.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/js/draw.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3808">
-              <caret line="224" column="37" selection-start-line="224" selection-start-column="37" selection-end-line="224" selection-end-column="37" />
+            <state relative-caret-position="3842">
+              <caret line="226" column="37" selection-start-line="226" selection-start-column="37" selection-end-line="226" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -177,6 +206,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -188,7 +218,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -201,6 +230,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\sjoer\Desktop\MinorProject\ChineseAI\Legacy" />
       <recent name="C:\Users\sjoer\Desktop\MinorProject\ChineseAI\model" />
       <recent name="C:\Users\sjoer\Desktop\Minor Project\ChineseAI\plots" />
     </key>
@@ -381,7 +411,7 @@
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32905984" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.34900284" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32905984" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19597316" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20134228" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" weight="0.3295302" />
       <window_info anchor="right" x="694" y="142" width="662" height="431" id="SciView" order="4" weight="0.3295302" />
@@ -444,13 +474,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/site-packages/keras/engine/base_layer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="190" selection-start-line="190" selection-end-line="190" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/site-packages/keras/backend/common.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
@@ -493,7 +516,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GPU test.py">
+    <entry file="file://$PROJECT_DIR$/Legacy/GPU test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
@@ -531,9 +554,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/KanjiNeural_1" />
-    <entry file="file://$PROJECT_DIR$/network.gv" />
-    <entry file="file://$PROJECT_DIR$/KanjiNeural_1.png" />
+    <entry file="file://$PROJECT_DIR$/Legacy/KanjiNeural_1" />
+    <entry file="file://$PROJECT_DIR$/Legacy/network.gv" />
+    <entry file="file://$PROJECT_DIR$/Legacy/KanjiNeural_1.png" />
     <entry file="file://$PROJECT_DIR$/KanjiNeural_nodes.png" />
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/site-packages/keras/utils/vis_utils.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -565,34 +588,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/keras_batches_test.py" />
     <entry file="file://$PROJECT_DIR$/Test.ipynb" />
-    <entry file="file://$PROJECT_DIR$/kanjibot_resnet_test.py">
+    <entry file="file://$PROJECT_DIR$/Legacy/kanjibot_resnet_test.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/kanjibot_pretrained.py">
+    <entry file="file://$PROJECT_DIR$/Legacy/kanjibot_pretrained.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/kanjibot_resnet_notebook.ipynb">
+    <entry file="file://$PROJECT_DIR$/Legacy/kanjibot_resnet_notebook.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
           <selected id="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resnet_utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="46" selection-start-line="46" selection-end-line="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kanjibot_pretrained.ipynb">
+    <entry file="file://$PROJECT_DIR$/Legacy/kanjibot_pretrained.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
           <selected id="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LRFinder.py">
+    <entry file="file://$PROJECT_DIR$/Legacy/LRFinder.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1071">
           <caret line="65" column="61" selection-start-line="65" selection-start-column="61" selection-end-line="65" selection-end-column="61" />
@@ -613,7 +629,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kanjibot_resnet.py">
+    <entry file="file://$PROJECT_DIR$/Legacy/kanjibot_resnet.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2465">
           <caret line="156" column="36" selection-start-line="156" selection-start-column="36" selection-end-line="156" selection-end-column="36" />
@@ -648,7 +664,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/uploads_Figure_3.png">
+    <entry file="file://$PROJECT_DIR$/Legacy/uploads_Figure_3.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/static/js/form.js">
@@ -657,24 +673,17 @@
     <entry file="file://$PROJECT_DIR$/uploads/Figure_1.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/load.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/upload.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Kanjibot_img2tfrecord.py">
+    <entry file="file://$PROJECT_DIR$/Legacy/Kanjibot_img2tfrecord.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="71" column="110" selection-start-line="71" selection-start-column="110" selection-end-line="71" selection-end-column="110" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kanjibot_server.py">
+    <entry file="file://$PROJECT_DIR$/Legacy/kanjibot_server.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="18" column="47" selection-start-line="18" selection-start-column="47" selection-end-line="18" selection-end-column="47" />
@@ -693,34 +702,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Kanjibot_network.py">
+    <entry file="file://$PROJECT_DIR$/Legacy/Kanjibot_network.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="199" column="37" selection-start-line="199" selection-start-column="37" selection-end-line="199" selection-end-column="37" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Kanjibot_hiragana.py">
+    <entry file="file://$PROJECT_DIR$/static/js/draw.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="36" selection-start-line="36" selection-end-line="36" selection-end-column="70" />
+        <state relative-caret-position="3842">
+          <caret line="226" column="37" selection-start-line="226" selection-start-column="37" selection-end-line="226" selection-end-column="37" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/draw.js">
+    <entry file="file://$PROJECT_DIR$/Kanjibot_hiragana.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3808">
-          <caret line="224" column="37" selection-start-line="224" selection-start-column="37" selection-end-line="224" selection-end-column="37" />
+        <state relative-caret-position="238">
+          <caret line="34" column="26" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/load.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/run.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="92" lean-forward="true" selection-start-line="92" selection-end-line="92" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="42">
+          <caret line="47" selection-start-line="47" selection-end-line="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resnet_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="18" column="79" lean-forward="true" selection-start-line="18" selection-start-column="79" selection-end-line="18" selection-end-column="79" />
         </state>
       </provider>
     </entry>

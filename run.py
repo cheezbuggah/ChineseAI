@@ -19,6 +19,7 @@ import sys
 import re
 import os
 import random
+import shutil
 
 os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
@@ -90,9 +91,9 @@ def predict(url):
 	# plt.show()
 	cut = imresize(cut, (28, 28))
 	cut2 = cut.reshape((1, 28, 28, 1))
+	cv.imwrite(url,cut)
 	cut2 = cut2.astype('float32')
 	cut2 /= 255
-
 	with graph.as_default():
 		out = model.predict(cut2)
 		print(type(out))
@@ -124,16 +125,10 @@ def chosen():
 	print(jchar)
 	dir_name = SAVE + jchar + '/'
 	img_save = str(random.randint(1, 999999999))
-	print(cookie["session"].value)
 	if not os.path.exists(dir_name):
 		os.mkdir(dir_name)
-	img = cv.imread(UPLOAD + cookie["session"].value + ".png")
-	cv.imwrite(dir_name + img_save + '.png', img)
-
-
-	#if jchar.encode("unicode_escape") doesn't exist, make dir
-	#img = UPLOAD + cookie["session"].value
-	#save(img,dir+random.randint(1,9999999999999999)
+	print(dir_name+img_save+'.png')
+	os.rename(UPLOAD + cookie["session"].value + ".png",dir_name + img_save + '.png')
 	return jsonify({})
 
 

@@ -57,16 +57,16 @@ global model, graph
 model, graph = init()
 
 
-# def safesave(img, chr):
-# 	rst = random.randint(100000000, 999999999)
-# 	rst = str(rst)
-# 	try:
-# 		cv.imread(SAVE+rst+"_"+chr+".png", 0)
-# 		safesave(img, chr)
-# 		return
-# 	except:
-# 		cv.imwrite(SAVE+rst+"_"+chr+".png", img)
-# 		return
+def safesave(img, chr):
+	rst = random.randint(100000000, 999999999)
+	rst = str(rst)
+	try:
+		cv.imread(SAVE+rst+"_"+chr+".png", 0)
+		safesave(img, chr)
+		return
+	except:
+		cv.imwrite(SAVE+rst+"_"+chr+".png", img)
+		return
 
 def predict(url):
 	img = cv.imread(url, 0)
@@ -108,6 +108,7 @@ def process():
 	if imgdata != None:
 		print(imgdata)
 		imgstr = re.search(r'base64,(.*)', str(imgdata)).group(1)
+		print(cookie["session"].value)
 		with open(UPLOAD+cookie["session"].value+".png", 'wb') as output:
 			output.write(base64.b64decode(imgstr))
 		prediction = predict(UPLOAD+cookie["session"].value+".png")
@@ -121,7 +122,15 @@ def index():
 def chosen():
 	jchar = request.form['jchar']
 	print(jchar)
-	print(jchar.encode("unicode_escape"))
+	dir_name = SAVE + jchar + '/'
+	img_save = str(random.randint(1, 999999999))
+	print(cookie["session"].value)
+	if not os.path.exists(dir_name):
+		os.mkdir(dir_name)
+	img = cv.imread(UPLOAD + cookie["session"].value + ".png")
+	cv.imwrite(dir_name + img_save + '.png', img)
+
+
 	#if jchar.encode("unicode_escape") doesn't exist, make dir
 	#img = UPLOAD + cookie["session"].value
 	#save(img,dir+random.randint(1,9999999999999999)
@@ -130,4 +139,4 @@ def chosen():
 
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run()

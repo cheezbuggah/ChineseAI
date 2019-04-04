@@ -214,6 +214,7 @@ window.onload = function() {
 
         $("#upload").click(function(){
             var dataURL = myCanvas.toDataURL("image/png");
+            console.log(dataURL);
             //$('#successAlert').text(dataURL).show();
             $.ajax({
                 data : {

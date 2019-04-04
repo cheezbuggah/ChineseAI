@@ -6,6 +6,7 @@ import math
 import numpy as np
 import decimal
 import pandas
+import http.cookies
 # import matplotlib
 # matplotlib.use('Agg')
 # import matplotlib.pyplot as plt
@@ -42,9 +43,15 @@ sys.path.append(os.path.abspath("./model"))
 UPLOAD = "./upload/"
 SAVE = "./saved/"
 BLACK = [0, 0, 0]
+SECRET_KEY = 'test'
+
 class_labels_k49 = pd.read_csv("./Dataset/k49_classmap.csv").to_dict()
 print(class_labels_k49)
 app = Flask(__name__)
+app.secret_key = SECRET_KEY
+cookie = http.cookies.SimpleCookie()
+cookie["session"] = random.randint(1000000000,9999999999)
+
 
 global model, graph
 model, graph = init()
@@ -99,10 +106,11 @@ def process():
 	prediction = []
 	imgdata = request.form['imgBase64']
 	if imgdata != None:
+		print(imgdata)
 		imgstr = re.search(r'base64,(.*)', str(imgdata)).group(1)
-		with open(UPLOAD+'output.png', 'wb') as output:
+		with open(UPLOAD+cookie["session"].value+".png", 'wb') as output:
 			output.write(base64.b64decode(imgstr))
-		prediction = predict(UPLOAD+'output.png')
+		prediction = predict(UPLOAD+cookie["session"].value+".png")
 	return jsonify({'rarray':prediction.tolist()})
 
 @app.route('/')
@@ -114,7 +122,12 @@ def chosen():
 	jchar = request.form['jchar']
 	print(jchar)
 	print(jchar.encode("unicode_escape"))
+	#if jchar.encode("unicode_escape") doesn't exist, make dir
+	#img = UPLOAD + cookie["session"].value
+	#save(img,dir+random.randint(1,9999999999999999)
 	return jsonify({})
+
+
 
 if __name__ == '__main__':
 	app.run(debug=True)
